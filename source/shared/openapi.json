@@ -1,155 +1,160 @@
 {
-    "swagger": "2.0",
-    "info": {
-        "version": "1.0.0",
-        "title": "API for tool manipulation",
-        "description": "",
-        "license": {}
-    },
-    "host": "localhost:3000",
-    "basePath": "/",
-    "schemes": ["http"],
-    "consumes": ["application/json"],
-    "produces": ["application/json"],
-    "paths": {
-        "/tools": {
-            "post": {
-                "tags": ["Tool"],
-                "summary": "Add a new tool",
-                "description": "Create and add a new tool.",
-                "parameters": [{
-                    "name": "Body",
-                    "in": "body",
-                    "description": "Tool object that needs to be added",
-                    "required": true,
-                    "schema": {
-                        "$ref": "#/definitions/Tool"
-                    }
-                }],
-                "consumes": ["application/json"],
-                "produces": ["application/json"],
-                "responses": {
-                    "200": {
-                        "schema": {
-                            "$ref": "#/definitions/Tool_Response"
-                        }
-                    },
-                    "409": {
-                        "description": "Tool with same title already exists"
-                    }
-                }
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "API for tool manipulation",
+    "description": "",
+    "license": {}
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/tools": {
+      "post": {
+        "tags": ["Tool"],
+        "summary": "Add a new tool",
+        "description": "Create and add a new tool.",
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "description": "Tool object that needs to be added",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Tool"
+            }
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Tool_Response"
+            }
+          },
+          "409": {
+            "description": "Tool with same title already exists"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Tool"],
+        "summary": "List tools",
+        "description": "List all tools",
+        "parameters": [],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Tool_Response"
+              }
             },
-            "get": {
-                "tags": ["Tool"],
-                "summary": "List tools",
-                "description": "List all tools",
-                "parameters": [],
-                "consumes": ["application/json"],
-                "produces": ["application/json"],
-                "responses": {
-                    "200": {
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/Tool_Response"
-                            }
-                        },
-                        "description": "Tools are returned"
-                    }
-                }
-            }
-            
-        },
-        "/tools/{id}": {
-            "delete": {
-                "tags": ["Tool"],
-                "summary": "Delete a tool",
-                "description": "Delete tools.",
-                "operationId": "deleteUser",
-                "produces": ["application/json"],
-                "parameters": [{
-                    "name": "id",
-                    "in": "path",
-                    "description": "Id of the tool to be deleted",
-                    "required": true,
-                    "type": "number"
-                }],
-                "responses": {
-                    "204": {
-                        "description": "Tool was deleted"
-                    },
-                    "404": {
-                        "description": "Tool was not found"
-                    }
-                }
-            }
-        },
-        
-        "/tools/searching": {
-            "get": {
-                "tags": ["Tool"],
-                "summary": "Search for tools",
-                "description": "Searches for tools by any field.",
-                "parameters": [{
-                    "name": "valor",
-                    "in": "query",
-                    "description": "Value of search",
-                    "required": true
-                }],
-                "produces": ["application/json"],
-                "responses": {
-                    "200": {
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/Tool_Response"
-                            }
-                        },
-                        "description": "Tools are returned"
-                    }
-                }
-            }
+            "description": "Tools are returned"
+          }
         }
+      }
     },
-    "definitions": {
-        "Tool": {
-            "type": "object",
-            "required": ["id", "title", "link", "description", "tags"],
-            "properties": {
-                "title": {
-                    "type": "string"
-                },
-                "link": {
-                    "type": "string"
-                },
-                "description": {
-                    "type": "string",
-                    "maxLength": 256
-                },
-                "tags": {
-                    "type": "array",
-                    "minItems": 0,
-                    "maxItems": 8,
-                    "items": {
-                        "type": "string"
-                    }
-                }
-            }
-        },
-        "Tool_Response": {
-            "type": "object",
-            "allOf": [{
-                    "$ref": "#/definitions/Tool"
-                },
-                {
-                    "properties": {
-                        "id": {
-                            "type": "integer"
-                        }
-                    }
-                }
-            ]
+    "/tools/{id}": {
+      "delete": {
+        "tags": ["Tool"],
+        "summary": "Delete a tool",
+        "description": "Delete tools.",
+        "operationId": "deleteUser",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of the tool to be deleted",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Tool was deleted"
+          },
+          "404": {
+            "description": "Tool was not found"
+          }
         }
+      }
+    },
 
+    "/tools/searching": {
+      "get": {
+        "tags": ["Tool"],
+        "summary": "Search for tools",
+        "description": "Searches for tools by any field.",
+        "parameters": [
+          {
+            "name": "valor",
+            "in": "query",
+            "description": "Value of search",
+            "required": true
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Tool_Response"
+              }
+            },
+            "description": "Tools are returned"
+          }
+        }
+      }
     }
+  },
+  "definitions": {
+    "Tool": {
+      "type": "object",
+      "required": ["id", "title", "link", "description", "tags"],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "link": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 256
+        },
+        "tags": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 8,
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Tool_Response": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Tool"
+        },
+        {
+          "properties": {
+            "id": {
+              "type": "integer"
+            }
+          }
+        }
+      ]
+    }
+  }
 }

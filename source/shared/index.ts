@@ -1,25 +1,24 @@
-import 'reflect-metadata'
-import 'express-async-errors'
+import "reflect-metadata";
+import "express-async-errors";
 
 import express from "express";
 
-import { setupRoutes } from './routes'
+import { setupRoutes } from "./routes";
 
-import './container'
-import './server'
-import errorHandler from './infrastructure/middleware/error-handling';
-import { setupDocs } from './documentation';
+import "./container";
+import "./server";
+import errorHandler from "./infrastructure/middleware/error-handling";
+import { setupDocs } from "./documentation";
 
 const app = express();
 
 app.use(express.json());
 const port = process.env.PORT || 3000;
 
-setupRoutes(app)
+setupRoutes(app);
 
-setupDocs(app)
+setupDocs(app);
 
-app.use(errorHandler)
-
+app.use(errorHandler);
 
 app.listen(port, () => console.log(`App listening on PORT ${port}`));
