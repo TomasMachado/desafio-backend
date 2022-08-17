@@ -1,0 +1,37 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8.0
+    cap_add:
+      - SYS_NICE
+    restart: always
+    environment:
+      - MYSQL_DATABASE=root
+      - MYSQL_ROOT_PASSWORD=mypassword
+      - MYSQL_DATABASE=desafio
+    ports:
+      - 127.0.0.1:3306:3306
+    volumes:
+      # - db:/var/lib/mysql
+      - ./docker:/docker-entrypoint-initdb.d
+  app:
+    # network_mode: host
+    container_name: app
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - '3000:3000'
+    depends_on:
+      - mysql
+    # "./wait-for-it.sh", "db", "--"
+    # entrypoint: ./wait-for-it.sh mysql:5432
+    # env_file: .env
+
+
+volumes:
+  db:
+    driver: local
+
