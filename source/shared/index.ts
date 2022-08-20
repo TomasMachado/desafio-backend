@@ -3,22 +3,23 @@ import "express-async-errors";
 
 import express from "express";
 
-import { setupRoutes } from "./routes";
+import errorHandler from "./infrastructure/middleware/error-handling";
+import { setupRoutes } from "./utils/routes";
+import { setupDocs } from "./utils/documentation";
 
 import "./container";
 import "./server";
-import errorHandler from "./infrastructure/middleware/error-handling";
-import { setupDocs } from "./documentation";
+import "./config"
 
 const app = express();
 
 app.use(express.json());
-const port = process.env.PORT || 3000;
 
 setupRoutes(app);
-
 setupDocs(app);
 
 app.use(errorHandler);
+
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => console.log(`App listening on PORT ${port}`));
