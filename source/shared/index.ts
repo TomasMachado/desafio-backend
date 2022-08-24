@@ -8,8 +8,8 @@ import { setupRoutes } from "./utils/routes";
 import { setupDocs } from "./utils/documentation";
 
 import "./container";
-import "./server";
-import "./config"
+import "./utils/server";
+import "./utils/config"
 
 const app = express();
 

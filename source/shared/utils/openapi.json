@@ -3,18 +3,38 @@
   "info": {
     "version": "1.0.0",
     "title": "API for tool manipulation",
-    "description": "",
+    "description": "desafio backend",
     "license": {}
   },
   "host": "localhost:3000",
   "basePath": "/",
-  "schemes": ["http"],
-  "consumes": ["application/json"],
-  "produces": ["application/json"],
+  "schemes": [
+    "http"
+  ],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "authorization",
+      "in": "header"
+    }
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
   "paths": {
     "/tools": {
       "post": {
-        "tags": ["Tool"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": [
+          "Tool"
+        ],
         "summary": "Add a new tool",
         "description": "Create and add a new tool.",
         "parameters": [
@@ -28,10 +48,15 @@
             }
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
         "responses": {
           "200": {
+            "description": "created",
             "schema": {
               "$ref": "#/definitions/Tool_Response"
             }
@@ -42,12 +67,23 @@
         }
       },
       "get": {
-        "tags": ["Tool"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": [
+          "Tool"
+        ],
         "summary": "List tools",
         "description": "List all tools",
         "parameters": [],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
         "responses": {
           "200": {
             "schema": {
@@ -63,11 +99,20 @@
     },
     "/tools/{id}": {
       "delete": {
-        "tags": ["Tool"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": [
+          "Tool"
+        ],
         "summary": "Delete a tool",
         "description": "Delete tools.",
         "operationId": "deleteUser",
-        "produces": ["application/json"],
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -87,21 +132,30 @@
         }
       }
     },
-
     "/tools/searching": {
       "get": {
-        "tags": ["Tool"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": [
+          "Tool"
+        ],
         "summary": "Search for tools",
         "description": "Searches for tools by any field.",
         "parameters": [
           {
             "name": "valor",
+            "type": "number",
             "in": "query",
             "description": "Value of search",
             "required": true
           }
         ],
-        "produces": ["application/json"],
+        "produces": [
+          "application/json"
+        ],
         "responses": {
           "200": {
             "schema": {
@@ -119,7 +173,13 @@
   "definitions": {
     "Tool": {
       "type": "object",
-      "required": ["id", "title", "link", "description", "tags"],
+      "required": [
+        "id",
+        "title",
+        "link",
+        "description",
+        "tags"
+      ],
       "properties": {
         "title": {
           "type": "string"
